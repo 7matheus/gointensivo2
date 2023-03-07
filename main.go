@@ -13,7 +13,16 @@ func task(name string) {
 }
 
 func main() {
-	go task("Tarefa 1")
-	go task("Tarefa 2")
-	task("Tarefa 3")
+	canal := make(chan string) // Canal de comunicação entre as threads
+
+	// Thread 2
+	go func() {
+		canal <- "Olá Mundo!"
+		canal <- "Olá Mundo 2!"
+	}() // Função Anônima
+
+	// Thread 1
+	// msg := <-canal
+	fmt.Println(<-canal)
+	fmt.Println(<-canal)
 }
